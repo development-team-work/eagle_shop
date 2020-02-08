@@ -18,6 +18,7 @@ Customisation Eagle ERP
         # 'data/payment_acquirer.xml',
         'data/res.country.state.csv',
         'data/account.account.csv',
+        'data/report.paperformat.csv',
         # 'reports/invoice.xml',
         # 'reports/product_label.xml',
         # 'reports/account_common_report_view.xml',

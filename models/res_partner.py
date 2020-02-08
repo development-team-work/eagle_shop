@@ -66,7 +66,7 @@ class res_partner(models.Model):
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
-        self = self.sudo(name_get_uid or self.env.uid)
+        self = self.with_user(name_get_uid or self.env.uid)
         if args is None:
             args = []
         if name and operator in ('=', 'ilike', '=ilike', 'like', '=like'):
@@ -91,6 +91,7 @@ class res_partner(models.Model):
                       {where} ({email} {operator} {percent}
                            OR {display_name} {operator} {percent}
                            OR {mobile} {operator} {percent}
+                           OR {phone} {operator} {percent}
                            OR {reference} {operator} {percent}
                            OR {vat} {operator} {percent})
                            -- don't panic, trust postgres bitmap
@@ -102,11 +103,12 @@ class res_partner(models.Model):
                                email=unaccent('res_partner.email'),
                                display_name=unaccent('res_partner.display_name'),
                                mobile=unaccent('res_partner.mobile'),
+                               phone=unaccent('res_partner.phone'),
                                reference=unaccent('res_partner.ref'),
                                percent=unaccent('%s'),
                                vat=unaccent('res_partner.vat'),)
 
-            where_clause_params += [search_name]*4  # for email / display_name, reference
+            where_clause_params += [search_name]*5  # for email / display_name, reference
             where_clause_params += [re.sub('[^a-zA-Z0-9]+', '', search_name) or None]  # for vat
             where_clause_params += [search_name]  # for order by
             if limit:
