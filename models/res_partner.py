@@ -9,13 +9,24 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     name = fields.Char(index=True, translate=True)
+    nick = fields.Char("Nick Name")
     is_writer=fields.Boolean("Is a Writer",default=False , translate=True)
     is_publisher=fields.Boolean("Is a Publisher",default=False , translate=True)
     # book_ids=fields.Many2many('product.template',string="Books")
     published=fields.One2many('product.template','publisher_id',string="Publications", translate=True)
-    written=fields.Many2many('product.template','writer_ids',string="Written Books", translate=True)
+    written=fields.Many2many('product.template','partner_product_template_rel','writer_ids','written',string="Written Books", translate=True)
     balance=fields.Monetary(string="Balance",compute='calculate_balance',  help="Balance for this account.")
 
+
+    def name_get(self):
+        result = []
+        for record in self:
+            if record.ref:
+                record_name = record.name + ' ( ' + record.ref + ' )'
+            else:
+                record_name = record.name
+            result.append((record.id, record_name))
+        return result
     @api.onchange('debit','credit')
     def calculate_balance(self):
         for rec in self:

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_account_partner_ledger_menus" model="ir.actions.act_window">
+        <field name="name">Partner Ledger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.report.partner.ledger</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="accounting_pdf_reports.account_report_partner_ledger_view"/>
+        <field name="target">new</field>
+        <field name="context">{'partner_ids' : 'active_id'}</field>
+        <field name="binding_model_id" ref="account.model_account_account" />
+        <field name="binding_type">report</field>
+    </record>
     <record id="eagle_shop_res_partner_form_view_inherit" model="ir.ui.view">
         <field name="name">eagle.shop.res.partner.form.inherit</field>
         <field name="priority" eval="1"/>
@@ -18,6 +29,7 @@
 
                     <group>
                         <group>
+                            <field name="nick" />
                             <field name="type" groups="base.group_no_one"/>
                             <label for="" name="address_name">
                                 <b attrs="{'invisible': [('type', '!=', 'contact')]}">Company Address</b>
@@ -90,8 +102,8 @@
                 <field name="city" placeholder="City/area" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'state_id': state_id}"/>
             </field>
             <div name="button_box" position="inside">
-                <button type="action"  class="oe_stat_button" icon="fa-balance-scale" name="%(accounting_pdf_reports.action_account_partner_ledger_menu)d"
-                        context="{'default_partner_ids': [active_id]}">
+                <button type="action"  class="oe_stat_button" icon="fa-balance-scale" name="%(action_account_partner_ledger_menus)d"
+                        context="{'default_partners': [(6,0, active_ids)]}">
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_value">
                             <field name="balance" widget='monetary' options="{'currency_field': 'currency_id'}"/>
@@ -119,4 +131,5 @@
             </field>
         </field>
     </record>
+
 </odoo>
