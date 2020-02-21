@@ -9,7 +9,7 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     name = fields.Char(index=True, translate=True)
-    nick = fields.Char("Nick Name")
+    nick = fields.Char("Nick Name",default="")
     is_writer=fields.Boolean("Is a Writer",default=False , translate=True)
     is_publisher=fields.Boolean("Is a Publisher",default=False , translate=True)
     # book_ids=fields.Many2many('product.template',string="Books")

@@ -2,6 +2,9 @@
 # Part of eagle. See LICENSE file for full copyright and licensing details.
 
 
+
+
+
 {
     'name' : 'Eagle Shop',
     'version' : '1.2.0.1',
@@ -24,6 +27,7 @@ Customisation Eagle ERP
         # 'reports/product_label.xml',
         'reports/account_common_report_view.xml',
         # 'reports/report.xml',
+        'reports/print_barcode.xml',
         # 'security/ir.model.access.csv',
         'views/account_payment.xml',
         'views/my_shop.xml',
@@ -32,7 +36,10 @@ Customisation Eagle ERP
         # 'views/order.xml',
         'views/product_view.xml',
         'views/pertner_view.xml',
-        # 'views/product_pricelist_view.xml',
+
+        'wizard/print_barcode_wizard.xml',
+        'views/stock_picking.xml',
+        'views/product_pricelist_view.xml',
 
     ],
     'demo': [
