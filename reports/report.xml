@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="paperformat_sticker" model="report.paperformat">
+        <!--<record id="paperformat_sticker" model="report.paperformat">
             <field name="name">Sticker</field>
             <field name="default" eval="True" />
             <field name="format">custom</field>
@@ -25,7 +25,7 @@
             name="my_shop.report_productlabel"
             file="my_shop.report_productlabel"
             print_report_name="'Products Labels - %s' % (object.name)"
-        />
+        />-->
 
     </data>
 </odoo>

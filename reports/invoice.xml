@@ -2,6 +2,98 @@
 <odoo>
 
     <data>
+
+        <template id="report_invoice" inherit_id="account.report_invoice_document">
+           <xpath expr="//div[@id='informations']" position="replace">
+
+            </xpath>
+            <xpath expr="//t/t[2]" position="replace">
+
+                <table class="table table-condensed" style="border:0">
+                    <tr>
+                        <td style="border:0">
+                            <span t-if="o.type == 'out_invoice' and o.state == 'posted'">Invoice</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                            <span t-if="o.type == 'out_refund'">Credit Note</span>
+                            <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
+                            <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
+                            <span t-if="o.name != '/'" t-field="o.name"/>
+                            <div style="text-align:left">
+                                <img alt="Barcode" t-if="len(o.name) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', o.name, 600, 40)" style="width:100%;height::1rem;"/>
+                                <img alt="Barcode" t-elif="len(o.name) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', o.name, 600, 40)" style="width:100%;height::1rem;"/>
+                                <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 40)" style="width:100%;height::1rem;"/>
+                            </div>
+                            <div id="informations" class="row mt32 mb32">
+                                <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                                    <strong>Invoice Date:</strong>
+                                    <p class="m-0" t-field="o.invoice_date"/>
+                                </div>
+                                <div class="col-auto mw-100 mb-2" t-if="o.invoice_date_due and o.type == 'out_invoice' and o.state == 'posted'" name="due_date">
+                                    <strong>Due Date:</strong>
+                                    <p class="m-0" t-field="o.invoice_date_due"/>
+                                </div>
+                                <div class="col-auto mw-100 mb-2" t-if="o.invoice_origin" name="origin">
+                                    <strong>Source:</strong>
+                                    <p class="m-0" t-field="o.invoice_origin"/>
+                                </div>
+                                <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                                    <strong>Customer Code:</strong>
+                                    <p class="m-0" t-field="o.partner_id.ref"/>
+                                </div>
+                                <div class="col-auto mw-100 mb-2" t-if="o.ref" name="reference">
+                                    <strong>Reference:</strong>
+                                    <p class="m-0" t-field="o.ref"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="text-align:right; border=0"><t t-set="o" t-value="o.with_context(lang=lang)" />
+                            <div>
+                                <span style="font-size:17px;">
+                                    <t t-esc="o.partner_shipping_id.name"/>
+                                </span>
+                            </div>
+                            <div>
+                                <t t-esc="o.partner_shipping_id.street"/>
+                            </div>
+                            <div>
+                                <t t-esc="o.partner_shipping_id.street2"/>
+                            </div>
+                            <div>
+                                <t t-esc="o.partner_shipping_id.city"/>,
+                                <t t-esc="o.partner_shipping_id.state_id.name"/>
+                                <t t-if="o.partner_shipping_id.zip">
+                                    <span>-</span>
+                                    <t t-esc="o.partner_shipping_id.zip"/>
+                                </t>
+                            </div>
+                            <div>
+                                <t t-esc="o.partner_shipping_id.country_id.name"/>,
+                            </div>
+                            <div>
+                                <t t-if="o.partner_shipping_id.mobile">
+                                    <span class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/> <t t-esc="o.partner_shipping_id.mobile"/>
+                                    <t t-if="o.partner_shipping_id.phone" >
+                                        ,
+                                    </t>
+                                </t>
+                                <t t-if="o.partner_shipping_id.phone" >
+                                    <t t-esc="o.partner_shipping_id.phone"/>
+                                </t>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </xpath>
+            <xpath expr="//h2[1]" position="replace">
+
+            </xpath>
+
+
+
+
+
+        </template>
         <template id="invoice_report_inherit" inherit_id="sale.report_saleorder_document">
             <xpath expr="//t[@t-set='address']" position="replace">
                 <t t-set="address">
@@ -39,8 +131,6 @@
         </template>
 
 
-    </data>
-    <data>
         <template id="invoice_report_document_inherit" inherit_id="account.report_invoice_document">
 <!--            print Phone and Mobile no in the Invoice-->
             <xpath expr="//t[@t-set='address']" position="replace">

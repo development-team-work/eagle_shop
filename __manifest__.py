@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of eagle. See LICENSE file for full copyright and licensing details.
 
-
-
-
-
 {
     'name' : 'Eagle Shop',
     'version' : '1.2.0.1',
@@ -23,14 +19,15 @@ Customisation Eagle ERP
         # 'data/payment_acquirer.xml',
         'data/res.country.state.csv',
         'data/report_paperformat_data.xml',
-        # 'reports/invoice.xml',
+        'reports/invoice.xml',
         # 'reports/product_label.xml',
         'reports/account_common_report_view.xml',
-        # 'reports/report.xml',
+        'reports/report.xml',
         'reports/print_barcode.xml',
         # 'security/ir.model.access.csv',
         'views/account_payment.xml',
         'views/my_shop.xml',
+        'views/ir_qweb_widget_templates.xml',
         # 'views/templates.xml',
         # 'views/account_invoice.xml',
         # 'views/order.xml',
