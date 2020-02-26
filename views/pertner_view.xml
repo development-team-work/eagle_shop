@@ -7,7 +7,7 @@
         <field name="view_mode">form</field>
         <field name="view_id" ref="accounting_pdf_reports.account_report_partner_ledger_view"/>
         <field name="target">new</field>
-        <field name="context">{'partner_ids' : 'active_id'}</field>
+        <field name="context">{'default_partner_ids' : 'active_id'}</field>
         <field name="binding_model_id" ref="account.model_account_account" />
         <field name="binding_type">report</field>
     </record>
@@ -103,12 +103,14 @@
             </field>
             <div name="button_box" position="inside">
                 <button type="action"  class="oe_stat_button" icon="fa-balance-scale" name="%(action_account_partner_ledger_menus)d"
-                        context="{'default_partners': [(6,0, active_ids)]}">
+                        context="{'default_partner_id': [(6,0, active_ids)]}">
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_value">
-                            <field name="balance" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="balance" style="color:green;" attrs="{'invisible': [('balance', '>=', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="balance" style="color:red;" attrs="{'invisible': [('balance', '&lt;', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </span>
-                        <span class="o_stat_text">Balance</span>
+                        <span class="o_stat_text" style="color:green;" attrs="{'invisible': [('balance', '>=', 0)]}">Payable</span>
+                        <span class="o_stat_text" style="color:red;" attrs="{'invisible': [('balance', '&lt;', 0)]}">Recievable</span>
                     </div>
                 </button>
             </div>
