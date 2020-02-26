@@ -11,7 +11,7 @@
 
                 <table class="table table-condensed" style="border:0">
                     <tr>
-                        <td style="border:0">
+                        <td style="border:0;text-align:center;">
                             <span t-if="o.type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
