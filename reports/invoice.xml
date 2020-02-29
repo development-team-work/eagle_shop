@@ -336,12 +336,12 @@
 
         <template id="invoice_report_document_inherit" inherit_id="account.report_invoice_document">
 <!--            print Phone and Mobile no in the Invoice-->
-            <xpath expr="//t[@t-set='address']" position="replace">
+            <!--<xpath expr="//t[@t-set='address']" position="replace">
                 <t t-set="address">
                     <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name","phone","mobile"], "no_marker": True}' />
                     <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></div>
                 </t>
-            </xpath>
+            </xpath>-->
 
         </template>
      <!--<record id="account_report_specific_partner_ledger_view" model="ir.ui.view">

@@ -34,8 +34,26 @@ class product_product(models.Model):
     product_price_list_item_count = fields.Integer(
         '# Pricelist', compute='_compute_product_pricelist_items_count')
 
-
-
+    def open_pricelist_rules(self):
+        self.ensure_one()
+        domain = domain = ['|',
+             ('product_id', '=', self.id), '&',('product_tmpl_id', '=', self.product_tmpl_id.id),('product_id', '=', False)]
+        return {
+            'name': _('Price Rules'),
+            'view_mode': 'tree,form',
+            'views': [(self.env.ref('product.product_pricelist_item_tree_view_from_product').id, 'tree'),
+                      (False, 'form')],
+            'res_model': 'product.pricelist.item',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'domain': domain,
+            'context': {
+                'default_product_tmpl_id': self.product_tmpl_id.id,
+                'default_applied_on': '0_product_variant',
+                'default_product_id': self.id,
+                'create': True,
+            },
+        }
 
     def _compute_product_pricelist_items_count(self):
         self.product_price_list_item_count = len(self.with_prefetch().pricelist_item_ids)

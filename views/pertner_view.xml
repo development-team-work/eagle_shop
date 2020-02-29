@@ -106,11 +106,11 @@
                         context="{'default_partner_id': [(6,0, active_ids)]}">
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_value">
-                            <field name="balance" style="color:green;" attrs="{'invisible': [('balance', '>=', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                            <field name="balance" style="color:red;" attrs="{'invisible': [('balance', '&lt;', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="balance" style="color:green;" attrs="{'invisible': [('balance', '>', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="balance" style="color:red;" attrs="{'invisible': [('balance', '&lt;=', 0)]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </span>
-                        <span class="o_stat_text" style="color:green;" attrs="{'invisible': [('balance', '>=', 0)]}">Payable</span>
-                        <span class="o_stat_text" style="color:red;" attrs="{'invisible': [('balance', '&lt;', 0)]}">Recievable</span>
+                        <span class="o_stat_text" style="color:green;" attrs="{'invisible': [('balance', '&gt;', 0)]}">Payable</span>
+                        <span class="o_stat_text" style="color:red;" attrs="{'invisible': [('balance', '&lt;=', 0)]}">Recievable</span>
                     </div>
                 </button>
             </div>
