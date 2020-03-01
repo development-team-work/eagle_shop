@@ -81,9 +81,6 @@
                 <menuitem id="menu_product_variant" name="Product Variants"
                           parent="menu_shop_product" action="product.product_normal_action_sell"
                           groups="product.group_sale_pricelist" sequence="6" />
-                <menuitem id="menu_product_pricelist_main" name="Pricelists"
-                          parent="menu_shop_product" action="product.product_pricelist_action2"
-                          groups="product.group_sale_pricelist" sequence="3" />
             <menuitem id="menu_shop_pos_main" name="POS"
                     action="point_of_sale.action_pos_config_kanban"
                     parent="shop_menu_root" sequence="6"/>
