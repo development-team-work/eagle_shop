@@ -5,11 +5,11 @@ from odoo import _,fields, models,api
 
 class productBook(models.Model):
     _inherit = 'product.template'
-    is_book=fields.Boolean("Is A Book",default=False)
-    publisher_id=fields.Many2one("res.partner",string="Publisher")
-    writer_ids=fields.Many2many("res.partner",'partner_product_template_rel','written','writer_ids',string="Writer")
-    prefix = fields.Char("Prefix")
-    suffix = fields.Char("Suffix")
+    is_book=fields.Boolean("Is A Book",related='product_variant_ids.is_book', readonly=False)
+    publisher_id=fields.Many2one("res.partner",string="Publisher",related='product_variant_ids.publisher_id',readonly=False)
+    writer_ids=fields.Many2many("res.partner",'partner_product_template_rel','written','writer_ids',string="Writer",related='product_variant_ids.writer_ids', readonly=False)
+    prefix = fields.Char("Prefix",related='product_variant_ids.prefix',readonly=False)
+    suffix = fields.Char("Suffix",related='product_variant_ids.suffix',readonly=False)
     def name_get(self):
         result = []
 
@@ -28,7 +28,11 @@ class productBook(models.Model):
 
 class product_product(models.Model):
     _inherit = "product.product"
-
+    is_book = fields.Boolean("Is A Book", default=False)
+    publisher_id = fields.Many2one("res.partner", string="Publisher")
+    writer_ids = fields.Many2many("res.partner", 'partner_product_rel', 'written', 'writer_ids', string="Writer")
+    prefix = fields.Char("Prefix")
+    suffix = fields.Char("Suffix")
     pricelist_item_ids = fields.One2many(
         'product.pricelist.item','product_id',string='Pricelist Items')
     product_price_list_item_count = fields.Integer(
@@ -37,7 +41,7 @@ class product_product(models.Model):
     def open_pricelist_rules(self):
         self.ensure_one()
         domain = domain = ['|',
-             ('product_id', '=', self.id), '&',('product_tmpl_id', '=', self.product_tmpl_id.id),('product_id', '=', False)]
+             ('product_id', '=', self.id), ('product_tmpl_id', '=', self.product_tmpl_id.id)]
         return {
             'name': _('Price Rules'),
             'view_mode': 'tree,form',
