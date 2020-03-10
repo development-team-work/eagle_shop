@@ -6,4 +6,4 @@ from . import stock_picking
 from . import res_partner
 from . import res_product
 # from . import account_invoice
-# from . import sale_order
+from . import sale_order

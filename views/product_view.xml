@@ -5,19 +5,33 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
         <field name="arch" type="xml">
-             <xpath expr="//field[@name='lst_price']" position="after">
-                <button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
-                    groups="product.group_product_pricelist" class="oe_inline">
-                    <field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
-                    <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
-                      Extra Prices
-                    </span>
-                    <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
-                      Extra Price
-                    </span>
-                </button>
-             </xpath>
-        </field>
+            <xpath expr="//p[1]" position="after">
+                    <field name="is_book"/><label for="is_book" />
+                <group attrs="{'invisible':[('is_book','=',False)]}" groups="product.group_product_variant">
+                    <field name="writer_ids" widget="many2many_tags" domain="[ ('is_writer', '=', 'True')]" context="{'default_is_writer':1}"/>
+                    <field name="publisher_id" widget="many2many_tag" domain="[ ('is_publisher', '=', 'True')]" context="{'default_is_publisher':True}"/>
+                    <field name="edition" />
+                    <field name="total_page" />
+                    <field name="printed_price" />
+                </group>
+            </xpath>
+            <label for="lst_price" position="before">
+                <label for="printed_price"/>
+                                <div >
+                                    <field name="printed_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" class="oe_inline" />
+                                    <button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
+                                        groups="product.group_product_pricelist" class="oe_inline">
+                                        <field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
+                                        <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+                                          Extra Prices
+                                        </span>
+                                        <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+                                          Extra Price
+                                        </span>
+                                    </button>
+                                </div>
+            </label>
+            </field>
     </record>
 
     <record id="product_template_form_view_inherit" model="ir.ui.view">
@@ -45,6 +59,9 @@
                     <group>
                         <field name="writer_ids" widget="many2many_tags" domain="[ ('is_writer', '=', 'True')]" context="{'default_is_writer':1}"/>
                         <field name="publisher_id" widget="many2many_tag" domain="[ ('is_publisher', '=', 'True')]" context="{'default_is_publisher':True}"/>
+                        <field name="edition" />
+                        <field name="total_page" />
+                        <field name="printed_price" />
                     </group>
 
                 </page>

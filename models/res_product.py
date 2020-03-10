@@ -10,6 +10,10 @@ class productBook(models.Model):
     writer_ids=fields.Many2many("res.partner",'partner_product_template_rel','written','writer_ids',string="Writer",related='product_variant_ids.writer_ids', readonly=False)
     prefix = fields.Char("Prefix",related='product_variant_ids.prefix',readonly=False)
     suffix = fields.Char("Suffix",related='product_variant_ids.suffix',readonly=False)
+    edition = fields.Char("edition",related='product_variant_ids.edition',readonly=False)
+    total_page = fields.Integer("Page",related='product_variant_ids.total_page',readonly=False)
+    printed_price = fields.Float("Printed Price",related='product_variant_ids.printed_price',readonly=False)
+
     def name_get(self):
         result = []
 
@@ -33,6 +37,9 @@ class product_product(models.Model):
     writer_ids = fields.Many2many("res.partner", 'partner_product_rel', 'written', 'writer_ids', string="Writer")
     prefix = fields.Char("Prefix")
     suffix = fields.Char("Suffix")
+    edition = fields.Char("edition")
+    total_page = fields.Integer("Page")
+    printed_price = fields.Float("Printed Price")
     pricelist_item_ids = fields.One2many(
         'product.pricelist.item','product_id',string='Pricelist Items')
     product_price_list_item_count = fields.Integer(
@@ -41,7 +48,7 @@ class product_product(models.Model):
     def open_pricelist_rules(self):
         self.ensure_one()
         domain = domain = ['|',
-             ('product_id', '=', self.id), ('product_tmpl_id', '=', self.product_tmpl_id.id)]
+             ('product_id', '=', self.id), '&',('product_tmpl_id', '=', self.product_tmpl_id.id),('product_id', '=', False)]
         return {
             'name': _('Price Rules'),
             'view_mode': 'tree,form',

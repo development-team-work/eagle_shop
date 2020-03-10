@@ -29,8 +29,8 @@ Customisation Eagle ERP
         'views/my_shop.xml',
         'views/ir_qweb_widget_templates.xml',
         # 'views/templates.xml',
-        # 'views/account_invoice.xml',
-        # 'views/order.xml',
+        'views/account_invoice.xml',
+        'views/order.xml',
         'views/product_view.xml',
         'views/pertner_view.xml',
 
