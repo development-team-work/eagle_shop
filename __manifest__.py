@@ -31,6 +31,7 @@ Customisation Eagle ERP
         # 'views/templates.xml',
         'views/account_invoice.xml',
         'views/order.xml',
+        'views/purchase_order.xml',
         'views/product_view.xml',
         'views/pertner_view.xml',
 
