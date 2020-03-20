@@ -13,7 +13,7 @@ Customisation Eagle ERP
     'category': 'Custom',
     'website': 'http://www.eagle.com/page/billing',
     'images' : ['images/accounts.jpeg','images/bank_statement.jpeg','images/cash_register.jpeg','images/chart_of_accounts.jpeg','images/customer_invoice.jpeg','images/journal_entries.jpeg'],
-    'depends' : ['base','website','stock','stock_account','account','sale_management','point_of_sale',
+    'depends' : ['base','website','stock','stock_account','account','sale_management','point_of_sale','product',
                  'note','website_sale','purchase','contacts','mrp','accounting_pdf_reports'],
     'data': [
         # 'data/payment_acquirer.xml',

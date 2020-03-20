@@ -3,6 +3,10 @@
 
 from odoo import _,fields, models,api
 
+class ProductUomAvailable(models.Model):
+    _inherit = 'uom.uom'
+    product_available = fields.Many2many("product.template", "product_uom_available_rel","product_available", "uom_available",
+                                     "Avalilable Units Of Measure")
 class productBook(models.Model):
     _inherit = 'product.template'
     is_book=fields.Boolean("Is A Book",related='product_variant_ids.is_book', readonly=False)
@@ -13,6 +17,8 @@ class productBook(models.Model):
     edition = fields.Char("edition",related='product_variant_ids.edition',readonly=False)
     total_page = fields.Integer("Page",related='product_variant_ids.total_page',readonly=False)
     printed_price = fields.Float("Printed Price",related='product_variant_ids.printed_price',readonly=False)
+    uom_category_id = fields.Many2one("uom.category",related="uom_id.category_id")
+    uom_available = fields.Many2many("uom.uom","product_uom_available_rel","uom_available","product_available","Avalilable Units Of Measure")
 
     def name_get(self):
         result = []
@@ -32,6 +38,8 @@ class productBook(models.Model):
 
 class product_product(models.Model):
     _inherit = "product.product"
+    name = fields.Char('Name', index=True,compute='get_name' ,inverse='set_name',store=True, translate=True)
+    tmpl_name = fields.Char('Template Name', related='product_tmpl_id.name')
     is_book = fields.Boolean("Is A Book", default=False)
     publisher_id = fields.Many2one("res.partner", string="Publisher")
     writer_ids = fields.Many2many("res.partner", 'partner_product_rel', 'written', 'writer_ids', string="Writer")
@@ -44,6 +52,19 @@ class product_product(models.Model):
         'product.pricelist.item','product_id',string='Pricelist Items')
     product_price_list_item_count = fields.Integer(
         '# Pricelist', compute='_compute_product_pricelist_items_count')
+
+    def get_name(self):
+        """Get the name from the template if no name is set on the variant."""
+        for record in self:
+            if record.name == '':
+                record.name = record.product_tmpl_id.name
+
+    def set_name(self):
+        for record in self:
+            if record.name=='':
+                record.name=record.product_tmpl_id.name
+            else:
+                record.name = record.name
 
     def open_pricelist_rules(self):
         self.ensure_one()
