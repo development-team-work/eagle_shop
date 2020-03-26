@@ -37,7 +37,7 @@
         <field name="payment_icon_ids" eval='[(6, 0, [ref("payment.payment_icon_cc_maestro"),
                                                         ref("payment.payment_icon_cc_visa")])]'/>
     </record>
-    <record id="payment_acquirer_rocket" model="payment.acquirer">
+ <!--   <record id="payment_acquirer_rocket" model="payment.acquirer">
         <field name="name">Rocket</field>
         <field name="sequence">1</field>
         <field name="view_template_id" ref="payment.default_acquirer_button"/>
@@ -51,10 +51,10 @@
                 <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
             </ul>
         </field>
-        <!-- https://www.paypal.com/us/selfhelp/article/Which-credit-cards-can-I-accept-with-PayPal-Merchant-Services-FAQ1525#business -->
+        &lt;!&ndash; https://www.paypal.com/us/selfhelp/article/Which-credit-cards-can-I-accept-with-PayPal-Merchant-Services-FAQ1525#business &ndash;&gt;
         <field name="payment_icon_ids" eval='[(6, 0, [ref("payment.payment_icon_cc_maestro"),
                                                         ref("payment.payment_icon_cc_visa")])]'/>
 
-    </record>
+    </record>-->
 </data>
 </odoo>
