@@ -34,6 +34,7 @@ Customisation Eagle ERP
         'views/purchase_order.xml',
         'views/product_view.xml',
         'views/pertner_view.xml',
+        'views/res_config_settings_views.xml',
 
         'wizard/print_barcode_wizard.xml',
         'views/stock_picking.xml',

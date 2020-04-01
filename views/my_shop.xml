@@ -119,5 +119,10 @@
                               sequence="8"
                               action="accounting_pdf_reports.action_account_tax_report"
                               parent="account_reports_legal_statements_menu"/>
+        <menuitem id="menu_eagle_shop_configuration"
+            name="Configuration"
+            parent="shop_menu_root"
+            groups="base.group_partner_manager"
+            sequence="100"/>
     </data>
 </odoo>
